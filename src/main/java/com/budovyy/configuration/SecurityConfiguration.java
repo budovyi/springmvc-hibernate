@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login", "/register","/email-verification/**", "/resources/**")
+                .antMatchers("/home","/login", "/register","/email-verification/**", "/resources/**")
                 .permitAll()
                 .antMatchers("/admin/**")
                 .hasRole("ADMIN")

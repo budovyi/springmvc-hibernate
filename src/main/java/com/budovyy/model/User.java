@@ -1,14 +1,6 @@
 package com.budovyy.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +24,10 @@ public class User {
     @Column(name = "LAST_NAME")
     private String lastName;
     @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "USERS_TO_ROLES",
             joinColumns = @JoinColumn(name = "FK_USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "FK_ROLE_ID")
@@ -109,13 +102,14 @@ public class User {
         this.email = email;
     }
 
-    public void setStatus(UserStatus pendingVerification) {
-        status = UserStatus.PENDING_VERIFICATION;
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 
     public enum UserStatus{
         PENDING_VERIFICATION,
-        ACTIVE
+        ACTIVE,
+        BLOCKED
 
     }
 

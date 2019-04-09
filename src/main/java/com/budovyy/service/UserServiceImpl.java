@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -38,6 +40,7 @@ public class UserServiceImpl implements UserService {
         user.setToken(getToken());
         user.setStatus(User.UserStatus.PENDING_VERIFICATION);
         User saved = userDao.addUser(user);
+        mailService.send(saved);
         return saved;
 
     }
@@ -46,6 +49,13 @@ public class UserServiceImpl implements UserService {
     public User emailVerification(String token) {
         User user = userDao.getByToken(token);
         user.setStatus(User.UserStatus.ACTIVE);
+
+        List<Role> roles = new ArrayList<>();
+        Role role = new Role();
+        role.setRoleName("USER");
+        roles.add(role);
+
+        user.setRoles(roles);
         userDao.updateUser(user);
         return user;
     }

@@ -39,6 +39,8 @@
     <label for="inputUsername" class="sr-only">Username</label>
     <spring:input path="username" id="inputUsername" class="form-control" placeholder="Username"/>
     <label for="inputPassword" class="sr-only">Password</label>
+    <spring:input type="email" path="email" id="inputEmail" class="form-control" placeholder="Email"/>
+    <label for="inputPassword" class="sr-only">Password</label>
     <spring:input path="password" type="password" id="inputPassword" class="form-control" placeholder="Password"/>
     <label for="inputPassword" class="sr-only">Repeat Password</label>
     <spring:input path="repeatPassword" type="password" id="inputPassword" class="form-control" placeholder="Repeat Password"/>

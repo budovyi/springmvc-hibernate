@@ -76,6 +76,7 @@ public class UserRegistration {
         result.setPassword(ur.getPassword());
         result.setFirstName(ur.getFirstName());
         result.setLastName(ur.getLastName());
+        result.setEmail(ur.getEmail());
         return result;
     }
 }
