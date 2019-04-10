@@ -32,6 +32,7 @@ public class UserDaoImpl implements UserDao {
     public User getByToken(String token) {
         return sessionFactory.getCurrentSession()
                 .createQuery("from User u where u.token =:token", User.class)
+                //.createNativeQuery("select * from users where u.token = 'token'")
                 .setParameter("token", token)
                 .uniqueResult();
     }
