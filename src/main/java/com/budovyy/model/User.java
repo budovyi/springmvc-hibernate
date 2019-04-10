@@ -1,5 +1,7 @@
 package com.budovyy.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(name = "USERS_TO_ROLES",
             joinColumns = @JoinColumn(name = "FK_USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "FK_ROLE_ID")

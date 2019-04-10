@@ -1,5 +1,6 @@
 package com.budovyy.service;
 
+import com.budovyy.dao.RoleDao;
 import com.budovyy.dao.UserDao;
 import com.budovyy.model.Role;
 import com.budovyy.model.User;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    RoleDao roleDao;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -50,12 +55,8 @@ public class UserServiceImpl implements UserService {
         User user = userDao.getByToken(token);
         user.setStatus(User.UserStatus.ACTIVE);
 
-        List<Role> roles = new ArrayList<>();
-        Role role = new Role();
-        role.setRoleName("USER");
-        roles.add(role);
-
-        user.setRoles(roles);
+        Role role = roleDao.getByRolename("USER");
+        user.setRoles(Arrays.asList(role));
         userDao.updateUser(user);
         return user;
     }
